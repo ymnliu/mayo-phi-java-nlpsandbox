@@ -25,9 +25,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.example.DateAnnotator;
+import org.example.DateExtractor;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-08-11T13:52:26.252409-07:00[America/Los_Angeles]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-11-23T13:52:26.252409-07:00[America/Los_Angeles]")
 @Validated
 @Api(value = "textDateAnnotations", description = "the textDateAnnotations API")
 public interface TextDateAnnotationsApi {
@@ -57,8 +57,7 @@ public interface TextDateAnnotationsApi {
     )
     default ResponseEntity<TextDateAnnotationResponse> createTextDateAnnotations(@ApiParam(value = ""  )  @Valid @RequestBody(required = false) TextDateAnnotationRequest textDateAnnotationRequest) {
         String text = textDateAnnotationRequest.getNote().getText();
-        List<TextDateAnnotation> annotations = new DateAnnotator()
-            .annotate(text);
+        List<TextDateAnnotation> annotations = new DateExtractor().findDatesFromString(text);
         TextDateAnnotationResponse res = new TextDateAnnotationResponse()
             .textDateAnnotations(annotations);
 
